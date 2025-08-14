@@ -356,31 +356,3 @@ te = TransactionEncoder()
 te_matrix_sparse_general = te.fit_transform(transactions_combined_sample, sparse=True)
 df_sparse_general = pd.DataFrame.sparse.from_spmatrix(te_matrix_sparse_general, columns=te.columns_)
 
-
-# ------------------------------
-# Búsqueda de hiperparámetros para reglas generales
-# ------------------------------
-
-print("\n*** Búsqueda de hiperparámetros para reglas generales ***")
-
-mejores_reglas = None
-mejor_soporte = None
-mejor_confianza = None
-max_reglas_generadas = 0
-
-for support in support_values:
-    frequent_itemsets = apriori(df_sparse_general, min_support=support, use_colnames=True, max_len=3, low_memory=True)
-
-    for confidence in confidence_values:
-        rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=confidence)
-        num_reglas = len(rules)
-        print(f"Generales - Soporte: {support}, Confianza: {confidence}, Reglas generadas: {num_reglas}")
-        
-        if num_reglas > max_reglas_generadas:
-            max_reglas_generadas = num_reglas
-            mejores_reglas = rules
-            mejor_soporte = support
-            mejor_confianza = confidence
-
-print("\nMejores hiperparámetros para reglas generales:")
-print(f"Soporte: {mejor_soporte}, Confianza: {mejor_confianza}, Reglas generadas: {max_reglas_generadas}")
