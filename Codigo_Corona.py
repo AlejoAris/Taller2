@@ -356,37 +356,6 @@ te = TransactionEncoder()
 te_matrix_sparse_general = te.fit_transform(transactions_combined_sample, sparse=True)
 df_sparse_general = pd.DataFrame.sparse.from_spmatrix(te_matrix_sparse_general, columns=te.columns_)
 
-# ------------------------------
-# Búsqueda de hiperparámetros para B2B
-# ------------------------------
-
-print("\n*** Búsqueda de hiperparámetros para reglas B2B ***")
-
-support_values = [0.01, 0.001,0.0001]  # Reducido aún más
-confidence_values = [0.5, 0.7,0.8,]
-
-mejores_reglas_b2b = None
-mejor_soporte_b2b = None
-mejor_confianza_b2b = None
-max_reglas_generadas_b2b = 0
-
-for support in support_values:
-    # Limitar el tamaño máximo de los conjuntos frecuentes (max_len=3)
-    frequent_itemsets_b2b = apriori(df_sparse_b2b, min_support=support, use_colnames=True, max_len=3, low_memory=True)
-
-    for confidence in confidence_values:
-        rules_b2b = association_rules(frequent_itemsets_b2b, metric="confidence", min_threshold=confidence)
-        num_reglas = len(rules_b2b)
-        print(f"B2B - Soporte: {support}, Confianza: {confidence}, Reglas generadas: {num_reglas}")
-        
-        if num_reglas > max_reglas_generadas_b2b:
-            max_reglas_generadas_b2b = num_reglas
-            mejores_reglas_b2b = rules_b2b
-            mejor_soporte_b2b = support
-            mejor_confianza_b2b = confidence
-
-print("\nMejores hiperparámetros para B2B:")
-print(f"Soporte: {mejor_soporte_b2b}, Confianza: {mejor_confianza_b2b}, Reglas generadas: {max_reglas_generadas_b2b}")
 
 # ------------------------------
 # Búsqueda de hiperparámetros para reglas generales
