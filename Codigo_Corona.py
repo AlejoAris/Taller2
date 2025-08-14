@@ -329,30 +329,7 @@ if recomendaciones:
 else:
     print(f"No hay recomendaciones disponibles para el cliente {cliente_ejemplo}.")
 
+#Se borro la linea de codigo que imprimia las recomendaciones
+# Se añade lo siguiente
 
-# ------------------------------
-# Búsqueda de hiperparámetros para reglas B2B
-# ------------------------------
-import random
-
-# ------------------------------
-# Muestreo de datos para reducir tamaño
-# ------------------------------
-
-# Muestreo para B2B (por ejemplo, 10,000 transacciones aleatorias)
-sample_size_b2b = 10000
-transactions_b2b_sample = random.sample(transactions_b2b, min(sample_size_b2b, len(transactions_b2b)))
-
-# Muestreo para transacciones generales (por ejemplo, 10,000 transacciones aleatorias)
-sample_size_general = 10000
-transactions_combined_sample = random.sample(transactions_combined, min(sample_size_general, len(transactions_combined)))
-
-# Codificar datos muestreados en matrices dispersas
-te_b2b = TransactionEncoder()
-te_matrix_sparse_b2b = te_b2b.fit_transform(transactions_b2b_sample, sparse=True)
-df_sparse_b2b = pd.DataFrame.sparse.from_spmatrix(te_matrix_sparse_b2b, columns=te_b2b.columns_)
-
-te = TransactionEncoder()
-te_matrix_sparse_general = te.fit_transform(transactions_combined_sample, sparse=True)
-df_sparse_general = pd.DataFrame.sparse.from_spmatrix(te_matrix_sparse_general, columns=te.columns_)
-
+recomendaciones_nuevas = "menos texto"
