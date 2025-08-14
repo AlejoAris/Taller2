@@ -4,26 +4,9 @@ import pandas as pd
 from mlxtend.frequent_patterns import apriori, association_rules
 from mlxtend.preprocessing import TransactionEncoder
 
-# Cargar datasets
-data1 = pd.read_csv("base_1_transaccional.txt", sep="\t")
-data2 = pd.read_csv("base_2_cotizaciones.txt", sep="\t")
+print("Cargando librerías necesarias...")
+# Cargar los datos
 data3 = pd.read_csv("base_3_transaccional_b2b.txt", sep="\t")
-# ------------------------------
-# 1. Datos transaccionales (data1)
-# ------------------------------
-data_apriori1 = (
-    data1.groupby('pedido')['producto']
-    .apply(list)
-    .reset_index(name='productos'))
-
-# ------------------------------
-# 2. Datos cotizaciones (data2)
-# ------------------------------
-data_apriori2 = (
-    data2.groupby('cotizacion')['producto']
-    .apply(list)
-    .reset_index(name='productos')
-)
 
 # ------------------------------
 # 3. Datos B2B (data3)
