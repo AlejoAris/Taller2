@@ -333,3 +333,14 @@ else:
 # Se añade lo siguiente
 
 recomendaciones_nuevas = "menos texto"
+
+
+
+# Funcion para generar recomendaciones
+def generar_recomendaciones(cliente_id, clientes_productos_binario, modelo_knn):
+    recomendaciones = recomendar_con_knn(cliente_id, clientes_productos_binario, modelo_knn)
+    if recomendaciones:
+        return f"Recomendaciones para el cliente {cliente_id}: " + ", ".join(recomendaciones[:10])
+    else:
+        return f"No hay recomendaciones disponibles para el cliente {cliente_id}."
+    
